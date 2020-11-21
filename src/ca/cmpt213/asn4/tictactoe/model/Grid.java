@@ -1,15 +1,34 @@
 package ca.cmpt213.asn4.tictactoe.model;
 
+/**
+ * This class is responsible for the game grid
+ * This is a singleton class as there can only
+ * be a single grid in a game
+ */
 public class Grid {
     private final int numRows;
     private final int numCol;
     private int[][] timesClicked;
 
-    public Grid() {
+    /*
+    Singleton Support
+     */
+    private static Grid instance;
+    private Grid() {
         numRows = 4;
         numCol = 4;
         timesClicked = new int[4][4];
     }
+    public static Grid getInstance() {
+        if (instance == null) {
+            instance = new Grid();
+        }
+        return instance;
+    }
+
+    /*
+    Methods
+     */
 
     public int getNumRows() {
         return numRows;
@@ -42,8 +61,8 @@ public class Grid {
         if (col < 0 || col > numCol) throw new IndexOutOfBoundsException("Number of Cols Out of Bounds");
         timesClicked[row][col] = 1;
 
-        System.out.println("Set x called");
-        printTimesClicked();
+//        System.out.println("Set x called");
+//        printTimesClicked();
     }
 
     /**
@@ -57,12 +76,23 @@ public class Grid {
         if (col < 0 || col > numCol) throw new IndexOutOfBoundsException("Number of Cols Out of Bounds");
         timesClicked[row][col] = 2;
 
-        System.out.println("Set o called");;
-        printTimesClicked();
+//        System.out.println("Set o called");;
+//        printTimesClicked();
+    }
+
+    /**
+     * resets the grid values to 0 to indicate nothing found
+     */
+    public void resetGrid() {
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCol; j++) {
+                timesClicked[i][j] = 0;
+            }
+        }
     }
 
     /*
-    Debugging Code
+    Debugging Help Code
      */
     private void printTimesClicked() {
         for (int i = 0; i < numRows; i++) {
