@@ -1,5 +1,9 @@
 package ca.cmpt213.asn4.bank;
 
+/**
+ * This is a class modeling a saving account inside
+ * a back account.
+ */
 public class SavingsAccount extends BankAccount {
 
     private boolean isActive;

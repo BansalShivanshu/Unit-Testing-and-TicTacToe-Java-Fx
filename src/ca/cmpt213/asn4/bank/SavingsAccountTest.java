@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This is a junit test class for testing
+ * savings account.
+ */
 class SavingsAccountTest {
     SavingsAccount savingsAccount;
 

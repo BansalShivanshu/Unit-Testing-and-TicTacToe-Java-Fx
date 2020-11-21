@@ -1,5 +1,11 @@
 package ca.cmpt213.asn4.bank;
 
+/**
+ * This is an abstract class modeling a Bank Account
+ * Most methods are public to allow anyone to access
+ * Getters and setters are made protected to only
+ * allow access to a subclass or class in the same package
+ */
 public abstract class BankAccount {
     private double balance;
     private int numDeposits;
