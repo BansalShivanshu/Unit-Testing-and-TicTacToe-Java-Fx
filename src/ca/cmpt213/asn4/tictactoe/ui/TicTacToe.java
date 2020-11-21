@@ -35,7 +35,7 @@ public class TicTacToe extends Application {
     Button newGameButton;
     GridPane gridPane;
     ImageView xView, oView;
-//    ImageView gameOverLeft, gameOverRight;
+    ImageView gameOverLeft, gameOverRight;
 
     Grid grid;
     GameLogic gameLogic;
@@ -89,17 +89,34 @@ public class TicTacToe extends Application {
         );
         newGameButton.setOnAction(new GameButtonClicked());
         newGameButton.setOnMouseEntered(mouseEvent -> {
-            newGameButton.setBackground(new Background(new BackgroundFill(Color.TURQUOISE, CornerRadii.EMPTY, Insets.EMPTY)));
+            newGameButton.setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, new CornerRadii(30), Insets.EMPTY)));
         });
         newGameButton.setOnMouseExited(mouseEvent -> {
             newGameButton.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         });
 //        newGameButton.hoverProperty().addListener();
 
-        VBox vBox = new VBox(10, turnLabel, gridPane, winLabel, newGameButton);
+        gameOverLeft = new ImageView(new Image("file:res/img/gameOver3.jpg"));
+        gameOverLeft.setFitHeight(50);
+        gameOverLeft.setFitWidth(320);
+        gameOverLeft.setRotate(gameOverLeft.getRotate() - 90);
+        gameOverRight = new ImageView(new Image("file:res/img/gameOver3.jpg"));
+        gameOverRight.setFitHeight(50);
+        gameOverRight.setFitWidth(320);
+        gameOverRight.setRotate(gameOverRight.getRotate() + 90);
+
+        gameOverLeft.setVisible(false);
+        gameOverRight.setVisible(false);
+
+        HBox hBox = new HBox(10, gameOverLeft, gridPane, gameOverRight);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+//        VBox vBox = new VBox(10, turnLabel, gridPane, winLabel, newGameButton);
+        VBox vBox = new VBox(10, turnLabel, hBox, winLabel, newGameButton);
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        Scene scene = new Scene(vBox, 500, 750, Color.BLACK);
+        Scene scene = new Scene(vBox, 950, 750, Color.BLACK);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -195,6 +212,9 @@ public class TicTacToe extends Application {
         else if (gameStatus == 1) winLabel.setText("*** X WINS ***");
         else if (gameStatus == 2) winLabel.setText("*** O WINS ***");
 
+        gameOverLeft.setVisible(true);
+        gameOverRight.setVisible(true);
+
         winLabel.setTextFill(Color.GOLD);
         winLabel.setFont((new Font("Ariel", 25)));
         winLabel.setStyle("-fx-font-weight: bold");
@@ -216,6 +236,8 @@ public class TicTacToe extends Application {
             grid.resetGrid();
             setTurnLabel();
             setWinLabel("");
+            gameOverLeft.setVisible(false);
+            gameOverRight.setVisible(false);
             enableGrid();
             gridPane.getChildren().clear();
             setGridPane();
